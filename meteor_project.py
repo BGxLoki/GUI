@@ -10,6 +10,10 @@ bg = PhotoImage(file="world_map4.png")
 canvas = Canvas(window, width=map_width, height=map_height)
 canvas.create_image(0, 0, anchor=NW, image=bg)
 canvas.pack()
+canvas.create_text(10,250, anchor="nw", text="Ancient", fill="Orange")
+canvas.create_text(10,270, anchor="nw", text="Medieval", fill="Red")
+canvas.create_text(10,290, anchor="nw", text="Modern", fill="Green")
+canvas.create_text(10,310, anchor="nw", text="Contemporary", fill="Blue")
 
 f = open("meteor_strikes.csv",encoding="utf-8")
 fileContents = f.read()
@@ -48,9 +52,10 @@ def draw_meteor(latitude,longitude,mass,year,name):
         canvas.create_text(x,y,text = name,font = ("Arial", 10),fill = 'gold')
 
 def draw_all_meteors():
-    for line in range(0,len(lineList)-1):
-        lineSplit = lineList.split(",")
-        draw_meteor(float(lineSplit[4]),float(lineSplit[3]),float(lineSplit[1]),int(lineSplit[2]),str(lineSplit[0]))
-print(lineList)
+    for line in lineList:
+        lineSplit = line.split(",")
+        if (len(line) > 3):
+            draw_meteor(float(lineSplit[3]),float(lineSplit[4]),float(lineSplit[1]),int(lineSplit[2]),str(lineSplit[0]))
+
 draw_all_meteors()
 window.mainloop()
